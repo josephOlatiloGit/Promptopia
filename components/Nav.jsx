@@ -51,11 +51,11 @@ export default function Nav() {
             </button>
             <Link href="/profile">
               <Image
-                src="/assets/images/logo.svg"
+                src={session?.user.image}
                 alt="profile"
                 width={37}
                 height={37}
-                className="rounded-full"
+                className="rounded-full object-cover"
               />
             </Link>
           </div>
@@ -80,11 +80,11 @@ export default function Nav() {
         {session?.user ? (
           <div className="flex">
             <Image
-              src="/assets/images/logo.svg"
+              src={session?.user.image}
               alt="profile"
               width={37}
               height={37}
-              className="rounded-full"
+              className="rounded-full object-cover"
               onClick={() => setToggleDropDown((prev) => !prev)}
             />
             {toggleDropDown && (
