@@ -9,19 +9,21 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
  * We need to manage the providers states
  * The we set the providers with useEffect callBack functions which only runs once.
  * The provider function will allow us to sign in using google.
+ * we make use of the useSession to get the current user data
  */
 
 export default function Nav() {
   const [providers, setProviders] = useState(null);
   const [toggleDropDown, setToggleDropDown] = useState(false);
-  const isUserLoggedIn = true;
+
+  const { data: session } = useSession();
 
   useEffect(() => {
-    const setProviders = async () => {
+    const setUpProviders = async () => {
       const res = await getProviders();
       setProviders(res);
     };
-    setProviders();
+    setUpProviders();
   }, []);
 
   return (
@@ -36,9 +38,10 @@ export default function Nav() {
         />
         <p className="logo_text">Promptopia</p>
       </Link>
+
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href={"/create-prompt"} className="black_btn">
               Create Post
@@ -74,7 +77,7 @@ export default function Nav() {
       </div>
       {/* Mobile navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
               src="/assets/images/logo.svg"
