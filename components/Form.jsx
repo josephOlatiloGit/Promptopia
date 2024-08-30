@@ -49,6 +49,7 @@ export default function Form({
             required
             className="form_input"
           />
+          {/* <input value={post.creator} hidden /> */}
         </label>
         <div className="flex-end mx-3 mb-5 gap-4">
           <Link href="/" className="text-gray-500 text-sm">
